@@ -57,6 +57,26 @@ void main() {
     expect(find.text('Place Order'), findsOneWidget);
   });
 
+  testWidgets(
+      'Renders responsively without overflow on Samsung Galaxy S20 Ultra screen',
+      (WidgetTester tester) async {
+    // Samsung Galaxy S20 Ultra has a 1440x3200 physical display (~412x915 dp)
+    tester.view.physicalSize = const Size(1440, 3200);
+    tester.view.devicePixelRatio = 3.5;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
+
+    await tester.pumpWidget(const StatelessLabExamApp());
+
+    expect(find.text('My Cart'), findsOneWidget);
+    expect(find.text('Ready for checkout'), findsOneWidget);
+    expect(find.text('Wireless Mouse'), findsOneWidget);
+    expect(find.text('Payment Summary'), findsOneWidget);
+    expect(find.text('Place Order'), findsOneWidget);
+  });
+
   testWidgets('All interactive elements trigger the correct debug prints', (
     WidgetTester tester,
   ) async {

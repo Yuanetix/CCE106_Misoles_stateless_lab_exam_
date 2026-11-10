@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// The Shopping Cart Page displays an elevated, iOS-inspired static shopping cart
 /// with delivery details, item cards, a discount banner, and a payment summary.
+/// Optimized and responsive for modern high-aspect-ratio devices like the Samsung Galaxy S20 Ultra.
 class ShoppingCartPage extends StatelessWidget {
   const ShoppingCartPage({super.key});
 
@@ -89,364 +90,401 @@ class ShoppingCartPage extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // --- Introduction Section ---
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4.5),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE5F0FF),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  'CAMPUS STORE',
-                  style: TextStyle(
-                    color: Color(0xFF1862F6),
-                    fontSize: 11,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.6,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 480),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Ready for checkout',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFF121E36),
-                  letterSpacing: -0.6,
-                  height: 1.15,
-                ),
-              ),
-              const SizedBox(height: 5),
-              const Text(
-                'Review your items before placing your order.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF5E6B85),
-                  letterSpacing: -0.3,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const SizedBox(height: 18),
-
-              // --- Delivery Information Card ---
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  border:
-                      Border.all(color: const Color(0xFFE5ECF6), width: 1.0),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x08121E36),
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Color(0xFF1862F6),
-                      size: 24,
-                    ),
-                    Container(
-                      height: 36,
-                      width: 1,
-                      color: const Color(0xFFE5ECF6),
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                    ),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Deliver to Glenn Oliva',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14,
-                              color: Color(0xFF121E36),
-                              letterSpacing: -0.3,
-                            ),
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            'Matina, Davao City',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xFF5E6B85),
-                              letterSpacing: -0.2,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () =>
-                          debugPrint('Change delivery address clicked'),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 4),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: const Text(
-                        'Change',
-                        style: TextStyle(
-                          color: Color(0xFF1862F6),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                          letterSpacing: -0.2,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 22),
-
-              // --- Order Items Header ---
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Text(
-                    'Order Items',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF121E36),
-                      letterSpacing: -0.4,
-                    ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 16.0,
                   ),
-                  Text(
-                    '3 items',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFF5E6B85),
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -0.2,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-
-              // --- Reusable CartItemCard Instances with iOS SF Aesthetic ---
-              const CartItemCard(
-                productName: 'Wireless Mouse',
-                price: 'PHP 450.00',
-                quantity: 1,
-                icon: Icons.mouse_outlined,
-              ),
-              const SizedBox(height: 12),
-              const CartItemCard(
-                productName: 'USB-C Hub',
-                price: 'PHP 850.00',
-                quantity: 1,
-                icon: Icons.usb_rounded,
-              ),
-              const SizedBox(height: 12),
-              const CartItemCard(
-                productName: 'Laptop Stand',
-                price: 'PHP 700.00',
-                quantity: 1,
-                icon: Icons.laptop_mac_rounded,
-              ),
-              const SizedBox(height: 18),
-
-              // --- Discount Banner ---
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE5F0FF),
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(
-                    color: const Color(0xFFC7DEFF),
-                    width: 1.0,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.local_offer_outlined,
-                      color: Color(0xFF1862F6),
-                      size: 22,
-                    ),
-                    Container(
-                      height: 32,
-                      width: 1,
-                      color: const Color(0x331862F6),
-                      margin: const EdgeInsets.symmetric(horizontal: 12),
-                    ),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'STUDENT10 applied',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14,
-                              color: Color(0xFF121E36),
-                              letterSpacing: -0.3,
-                            ),
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            '10% discount on items',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xFF5E6B85),
-                              letterSpacing: -0.2,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Icon(
-                      Icons.check_circle_rounded,
-                      color: Color(0xFF1862F6),
-                      size: 22,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 18),
-
-              // --- Payment Summary Card ---
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  border:
-                      Border.all(color: const Color(0xFFE5ECF6), width: 1.0),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x08121E36),
-                      blurRadius: 10,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Payment Summary',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: Color(0xFF121E36),
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    _buildSummaryRow(
-                      label: 'Subtotal',
-                      amount: 'PHP 2,000.00',
-                    ),
-                    const SizedBox(height: 9),
-                    _buildSummaryRow(
-                      label: 'Discount (10%)',
-                      amount: '- PHP 200.00',
-                    ),
-                    const SizedBox(height: 9),
-                    _buildSummaryRow(
-                      label: 'Delivery Fee',
-                      amount: 'PHP 50.00',
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      child: Divider(
-                        color: Color(0xFFE5ECF6),
-                        height: 1.0,
-                        thickness: 1.0,
-                      ),
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Total',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFF121E36),
-                            letterSpacing: -0.3,
-                          ),
-                        ),
-                        Text(
-                          'PHP 1,850.00',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFF121E36),
-                            letterSpacing: -0.3,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 18),
-
-              // --- Place Order Button ---
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  onPressed: () {
-                    debugPrint('Place order clicked! Total: PHP 1850.00');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1862F6),
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    shadowColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.lock_rounded,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Place Order',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          letterSpacing: -0.3,
+                      // --- Introduction Section ---
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4.5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE5F0FF),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Text(
+                          'CAMPUS STORE',
+                          style: TextStyle(
+                            color: Color(0xFF1862F6),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 0.6,
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        'Ready for checkout',
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF121E36),
+                          letterSpacing: -0.6,
+                          height: 1.15,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      const Text(
+                        'Review your items before placing your order.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF5E6B85),
+                          letterSpacing: -0.3,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+
+                      // --- Delivery Information Card ---
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 13,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: const Color(0xFFE5ECF6),
+                            width: 1.0,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x08121E36),
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              color: Color(0xFF1862F6),
+                              size: 24,
+                            ),
+                            Container(
+                              height: 36,
+                              width: 1,
+                              color: const Color(0xFFE5ECF6),
+                              margin: const EdgeInsets.symmetric(horizontal: 12),
+                            ),
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Deliver to Glenn Oliva',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Color(0xFF121E36),
+                                      letterSpacing: -0.3,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: 2),
+                                  Text(
+                                    'Matina, Davao City',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Color(0xFF5E6B85),
+                                      letterSpacing: -0.2,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            TextButton(
+                              onPressed: () =>
+                                  debugPrint('Change delivery address clicked'),
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 4,
+                                ),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: const Text(
+                                'Change',
+                                style: TextStyle(
+                                  color: Color(0xFF1862F6),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  letterSpacing: -0.2,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+
+                      // --- Order Items Header ---
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            'Order Items',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                              color: Color(0xFF121E36),
+                              letterSpacing: -0.4,
+                            ),
+                          ),
+                          Text(
+                            '3 items',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Color(0xFF5E6B85),
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: -0.2,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      // --- Reusable CartItemCard Instances with iOS SF Aesthetic ---
+                      const CartItemCard(
+                        productName: 'Wireless Mouse',
+                        price: 'PHP 450.00',
+                        quantity: 1,
+                        icon: Icons.mouse_outlined,
+                      ),
+                      const SizedBox(height: 12),
+                      const CartItemCard(
+                        productName: 'USB-C Hub',
+                        price: 'PHP 850.00',
+                        quantity: 1,
+                        icon: Icons.usb_rounded,
+                      ),
+                      const SizedBox(height: 12),
+                      const CartItemCard(
+                        productName: 'Laptop Stand',
+                        price: 'PHP 700.00',
+                        quantity: 1,
+                        icon: Icons.laptop_mac_rounded,
+                      ),
+                      const SizedBox(height: 18),
+
+                      // --- Discount Banner ---
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE5F0FF),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: const Color(0xFFC7DEFF),
+                            width: 1.0,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.local_offer_outlined,
+                              color: Color(0xFF1862F6),
+                              size: 22,
+                            ),
+                            Container(
+                              height: 32,
+                              width: 1,
+                              color: const Color(0x331862F6),
+                              margin: const EdgeInsets.symmetric(horizontal: 12),
+                            ),
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'STUDENT10 applied',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Color(0xFF121E36),
+                                      letterSpacing: -0.3,
+                                    ),
+                                  ),
+                                  SizedBox(height: 2),
+                                  Text(
+                                    '10% discount on items',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Color(0xFF5E6B85),
+                                      letterSpacing: -0.2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Icon(
+                              Icons.check_circle_rounded,
+                              color: Color(0xFF1862F6),
+                              size: 22,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+
+                      // --- Payment Summary Card ---
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: const Color(0xFFE5ECF6),
+                            width: 1.0,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x08121E36),
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Payment Summary',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                                color: Color(0xFF121E36),
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+                            const SizedBox(height: 14),
+                            _buildSummaryRow(
+                              label: 'Subtotal',
+                              amount: 'PHP 2,000.00',
+                            ),
+                            const SizedBox(height: 9),
+                            _buildSummaryRow(
+                              label: 'Discount (10%)',
+                              amount: '- PHP 200.00',
+                            ),
+                            const SizedBox(height: 9),
+                            _buildSummaryRow(
+                              label: 'Delivery Fee',
+                              amount: 'PHP 50.00',
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 14),
+                              child: Divider(
+                                color: Color(0xFFE5ECF6),
+                                height: 1.0,
+                                thickness: 1.0,
+                              ),
+                            ),
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'Total',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w800,
+                                      color: Color(0xFF121E36),
+                                      letterSpacing: -0.3,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'PHP 1,850.00',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                    color: Color(0xFF121E36),
+                                    letterSpacing: -0.3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+
+                      // --- Place Order Button ---
+                      SizedBox(
+                        width: double.infinity,
+                        height: 52,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            debugPrint(
+                              'Place order clicked! Total: PHP 1850.00',
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF1862F6),
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.lock_rounded,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'Place Order',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  letterSpacing: -0.3,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
@@ -459,15 +497,20 @@ class ShoppingCartPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF5E6B85),
-            letterSpacing: -0.2,
-            fontWeight: FontWeight.w400,
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Color(0xFF5E6B85),
+              letterSpacing: -0.2,
+              fontWeight: FontWeight.w400,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
+        const SizedBox(width: 8),
         Text(
           amount,
           style: const TextStyle(
@@ -567,6 +610,8 @@ class CartItemCard extends StatelessWidget {
                     color: Color(0xFF121E36),
                     letterSpacing: -0.3,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 3),
                 Text(
@@ -579,87 +624,92 @@ class CartItemCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    // Minus button (blue outlined rounded square)
-                    Material(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      child: InkWell(
-                        onTap: () =>
-                            debugPrint('Decrease quantity: $productName'),
-                        borderRadius: BorderRadius.circular(6),
-                        child: Container(
-                          width: 30,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0xFF1862F6),
-                              width: 1.2,
-                            ),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Icon(
-                            Icons.remove,
-                            size: 16,
-                            color: Color(0xFF1862F6),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-
-                    // Quantity display container (subtle light border box matching design)
-                    Container(
-                      width: 42,
-                      height: 28,
-                      decoration: BoxDecoration(
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Minus button (blue outlined rounded square)
+                      Material(
                         color: Colors.white,
-                        border: Border.all(
-                          color: const Color(0xFFE5ECF6),
-                          width: 1.0,
-                        ),
                         borderRadius: BorderRadius.circular(6),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '$quantity',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13,
-                          color: Color(0xFF121E36),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-
-                    // Plus button (blue outlined rounded square)
-                    Material(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(6),
-                      child: InkWell(
-                        onTap: () =>
-                            debugPrint('Increase quantity: $productName'),
-                        borderRadius: BorderRadius.circular(6),
-                        child: Container(
-                          width: 30,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0xFF1862F6),
-                              width: 1.2,
+                        child: InkWell(
+                          onTap: () =>
+                              debugPrint('Decrease quantity: $productName'),
+                          borderRadius: BorderRadius.circular(6),
+                          child: Container(
+                            width: 30,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: const Color(0xFF1862F6),
+                                width: 1.2,
+                              ),
+                              borderRadius: BorderRadius.circular(6),
                             ),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            size: 16,
-                            color: Color(0xFF1862F6),
+                            child: const Icon(
+                              Icons.remove,
+                              size: 16,
+                              color: Color(0xFF1862F6),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 4),
+
+                      // Quantity display container (subtle light border box matching design)
+                      Container(
+                        width: 42,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: const Color(0xFFE5ECF6),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '$quantity',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                            color: Color(0xFF121E36),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+
+                      // Plus button (blue outlined rounded square)
+                      Material(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(6),
+                        child: InkWell(
+                          onTap: () =>
+                              debugPrint('Increase quantity: $productName'),
+                          borderRadius: BorderRadius.circular(6),
+                          child: Container(
+                            width: 30,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: const Color(0xFF1862F6),
+                                width: 1.2,
+                              ),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Icon(
+                              Icons.add,
+                              size: 16,
+                              color: Color(0xFF1862F6),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
